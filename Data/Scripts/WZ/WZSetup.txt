@@ -1,0 +1,67 @@
+// ----------------------------------
+// RSDK Project: Sonic 2: Simon Wai Recreation
+// Script Description: WZ Setup Object
+// Script Author: Twanvanb1
+// ----------------------------------
+
+// ========================
+// Aliases
+// ========================
+
+private alias object.value0  : object.PaletteTimer
+
+// Tracks
+private alias 0 : TRACK_STAGE
+private alias 1 : TRACK_ACTFINISH
+private alias 2 : TRACK_INVINCIBLE
+private alias 3 : TRACK_CONTINUE
+private alias 4 : TRACK_BOSS
+private alias 5 : TRACK_GAMEOVER
+private alias 6 : TRACK_DROWNING
+private alias 7 : TRACK_SUPER
+
+// Reserved object slots
+private alias 10 : SLOT_ZONESETUP
+private alias 25 : SLOT_MUSICEVENT_CHANGE
+private alias 26 : SLOT_MUSICEVENT_BOSS
+
+// Music Events
+private alias 2 : MUSICEVENT_TRANSITION
+
+private alias 0 : MUSICEVENT_FLAG_NOCHANGE
+private alias 1 : MUSICEVENT_FLAG_SPEEDUP
+private alias 2 : MUSICEVENT_FLAG_SLOWDOWN
+
+// Music Loops
+private alias 322051 : MUSIC_LOOP_WZ
+
+private alias 38679  : MUSIC_LOOP_INV
+private alias 30897  : MUSIC_LOOP_INV_F
+
+
+event ObjectUpdate
+object.PaletteTimer++
+	if object.PaletteTimer == 3
+		object.PaletteTimer = 0
+		RotatePalette(0, 179, 182, 1)
+	end if
+end event
+
+
+event ObjectStartup
+	SetMusicTrack("Wood.ogg", TRACK_STAGE, MUSIC_LOOP_WZ)
+
+	object[SLOT_ZONESETUP].type = TypeName[WZ Setup]
+	object[SLOT_ZONESETUP].priority = PRIORITY_ACTIVE
+
+
+end event
+
+event RSDKDraw
+	DrawSprite(0)
+end event
+
+event RSDKLoad
+	LoadSpriteSheet("Global/Display.gif")
+	SpriteFrame(-16, -16, 32, 32, 1, 143)
+end event
